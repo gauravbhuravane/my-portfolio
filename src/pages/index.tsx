@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, User, Heart, Code, Rocket, Code2, Palette, Database, Cloud, Zap, Cpu, Briefcase, Github, ExternalLink, Filter, GraduationCap, Calendar, MapPin, Award, Download, Mail, Phone, Send, Linkedin, Twitter } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -6,9 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { projects } from '@/data/projects';
+import { useRef } from 'react';
+import emailjs from 'emailjs-com';
+import { toast as reactToast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Index() {
-  const { toast } = useToast();
+  const { toast: customToast } = useToast();
   const [displayedText, setDisplayedText] = useState('');
   const [filter, setFilter] = useState<string>('All');
   const [flipped, setFlipped] = useState<number[]>([]);
@@ -20,7 +24,10 @@ export default function Index() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const fullText = "I'm a Full Stack Developer & IT Enthusiast";
+  // ADD THIS LINE:
+  const form = useRef<HTMLFormElement>(null);
+
+  const fullText = "I'm an IT Professional & Technology Enthusiast";
   
   useEffect(() => {
     let currentIndex = 0;
@@ -91,9 +98,9 @@ export default function Index() {
   ];
 
   const additionalSkills = [
-    { icon: Palette, name: 'UI/UX Design', color: 'neon-purple' },
-    { icon: Zap, name: 'Performance Optimization', color: 'neon-blue' },
-    { icon: Cpu, name: 'AI/ML Integration', color: 'neon-pink' },
+    { icon: Palette, name: 'Adobe Photoshop', color: 'neon-purple' },
+    { icon: Zap, name: 'Filmora Video Editing', color: 'neon-blue' },
+    { icon: Cpu, name: 'Microsoft Word', color: 'neon-pink' },
   ];
 
   const categories: string[] = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
@@ -101,29 +108,37 @@ export default function Index() {
 
   const education = [
     {
-      degree: 'Master of Computer Science',
-      institution: 'University Name',
-      location: 'City, Country',
-      period: '2021 - 2023',
-      description: 'Specialized in Artificial Intelligence and Machine Learning. Graduated with distinction.',
-      achievements: ['GPA: 3.9/4.0', 'Dean\'s List', 'Research Assistant'],
+      degree: 'Master of Computer Applications (MCA)',
+      institution: 'Finolex Academy of Management & Technology',
+      location: 'Ratnagiri, Maharashtra, India',
+      period: '2024 – 2026 (Pursuing Final Year)',
+      description: 'Relevant coursework: Data Structures, Web Technologies.',
+      achievements: ['Active participant in tech events', 'Consistently strong academic performance']
     },
     {
-      degree: 'Bachelor of Computer Science',
-      institution: 'University Name',
-      location: 'City, Country',
-      period: '2017 - 2021',
-      description: 'Comprehensive study of computer science fundamentals, software engineering, and web development.',
-      achievements: ['GPA: 3.7/4.0', 'Honors Program', 'Student Council Member'],
+      degree: 'Bachelor of Science in Computer Science (B.Sc. CS)',
+      institution: 'ASP College, Devrukh',
+      location: 'Devrukh, Maharashtra, India',
+      period: '2021 – 2024',
+      description: 'Focused on programming fundamentals, databases, and web development.',
+      achievements: ['Graduated with 9.56 CGPA', 'Runner-up at State-Level Web Development Competitions (2024 & 2025)']
     },
     {
-      degree: 'High School Diploma',
-      institution: 'High School Name',
-      location: 'City, Country',
-      period: '2015 - 2017',
-      description: 'Focus on Mathematics and Computer Science. Participated in various coding competitions.',
-      achievements: ['Top 5% of class', 'Programming Club President', 'Regional Olympiad Winner'],
+      degree: 'Higher Secondary Certificate (HSC)',
+      institution: 'Meenatai Thakare Science Jr. College, Sadavali',
+      location: 'Ratnagiri, Maharashtra, India',
+      period: '2020',
+      description: 'Specialized in Science with Mathematics.',
+      achievements: ['Scored 63.69%', 'Active participant in academic and science events']
     },
+    {
+      degree: 'Secondary School Certificate (SSC)',
+      institution: 'Dadasaheb Sarfare Vidyalaya, Burambi',
+      location: 'Ratnagiri, Maharashtra, India',
+      period: '2018',
+      description: 'Completed schooling under MSBSHSE board.',
+      achievements: ['Scored 81.60%', 'Top performer in academics']
+    }
   ];
 
   const certifications = [
@@ -177,31 +192,32 @@ export default function Index() {
     },
   ];
 
+  // ADD THESE CONSTANTS:
   const contactInfo = [
     {
       icon: Mail,
       label: 'Email',
-      value: 'your.email@example.com',
-      href: 'mailto:your.email@example.com',
+      value: 'bhuravanegaurav@example.com', // UPDATE WITH YOUR EMAIL
+      href: 'mailto:bhuravanegaurav@example.com', // UPDATE WITH YOUR EMAIL
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+1 (234) 567-8900',
-      href: 'tel:+12345678900',
+      value: '+91 9021042998', // UPDATE WITH YOUR PHONE
+      href: 'tel:+91 9021042998', // UPDATE WITH YOUR PHONE
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Your City, Country',
+      value: 'Ratnagiri, Maharashtra, IN',
       href: '#',
     },
   ];
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/gauravbhuravane', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/gaurav-bhuravane', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/gauravbhuravane?t=qQd38oH4vyTcBsvRXO8wXg&s=08', label: 'Twitter' },
   ];
 
   const toggleFlip = (index: number) => {
@@ -212,19 +228,32 @@ export default function Index() {
     );
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    toast({
-      title: 'Message Sent!',
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+    
+    if (!form.current) return;
+    
+    emailjs
+      .sendForm(
+        (import.meta as any).env.VITE_EMAILJS_SERVICE_ID,
+        (import.meta as any).env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        (import.meta as any).env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          reactToast.success('✅ Email sent successfully! I\'ll get back to you soon 😊');
+          form.current?.reset();
+          setFormData({ name: '', email: '', subject: '', message: '' });
+          setIsSubmitting(false);
+        },
+        (error) => {
+          reactToast.error('❌ Something went wrong. Please try again later.');
+          console.error(error.text);
+          setIsSubmitting(false);
+        }
+      );
   };
 
   return (
@@ -256,55 +285,87 @@ export default function Index() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-5xl md:text-7xl font-bold font-poppins"
-            >
-              Hi, I'm{' '}
-              <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
-                Your Name
-              </span>
-            </motion.h1>
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.4 }}
+  className="text-5xl md:text-7xl font-bold font-poppins"
+>
+  Hi all, I'm{' '}
+  <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+    Gaurav
+  </span>
+</motion.h1>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-xl md:text-3xl text-muted-foreground font-poppins min-h-[48px]"
-            >
-              <span>{displayedText}</span>
-              <span className="inline-block w-0.5 h-8 bg-purple-500 ml-1 animate-pulse"></span>
-            </motion.div>
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.6 }}
+  className="text-xl md:text-3xl text-muted-foreground font-poppins min-h-[48px]"
+>
+  <span>{displayedText}</span>
+  <span className="inline-block w-0.5 h-8 bg-purple-500 ml-1 animate-pulse"></span>
+</motion.div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            >
-              Crafting innovative solutions with cutting-edge technologies. 
-              Passionate about creating beautiful, functional, and user-centric applications.
-            </motion.p>
+<motion.p
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.8 }}
+  className="text-lg text-muted-foreground max-w-2xl mx-auto"
+>
+ A dedicated <strong className="text-foreground">IT professional</strong> 🌟 skilled in developing and maintaining software solutions, working with modern technologies and tools to deliver high-quality applications. Focused on problem-solving, efficient code, performance, and providing great user experiences.
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4"
-            >
-              <a href="#projects">
-                <Button className="neon-button group">
-                  View Projects
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </a>
-              <a href="#contact">
-                <Button variant="outline" className="border-neon-purple/50 text-foreground hover:bg-neon-purple/10">
-                  Contact Me
-                </Button>
-              </a>
-            </motion.div>
+</motion.p>
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 1 }}
+  className="flex items-center justify-center gap-4 mb-6"
+>
+  {socialLinks.map((social) => {
+    const Icon = social.icon;
+    return (
+      <a
+        key={social.label}
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-14 h-14 rounded-full bg-foreground text-background hover:bg-gradient-to-r hover:from-purple-500 hover:to-blue-500 flex items-center justify-center transition-all duration-300 group hover:scale-110"
+        aria-label={social.label}
+      >
+        <Icon className="w-6 h-6" />
+      </a>
+    );
+  })}
+</motion.div>
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 1.2 }}
+  className="flex flex-col sm:flex-row items-center justify-center gap-4"
+>
+  <a
+    href="/Gaurav-Bhuravane-Resume.pdf"
+    download="Gaurav-Bhuravane-Resume.pdf"
+  >
+    <Button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] text-white group">
+      Download My Resume
+      <Download className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+    </Button>
+  </a>
+
+  <a href="#contact">
+    <Button
+      variant="outline"
+      className="border-purple-500/50 text-foreground hover:bg-purple-500/10"
+    >
+      Contact Me
+    </Button>
+  </a>
+</motion.div>
+
+
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -369,15 +430,12 @@ export default function Index() {
                 </div>
 
                 <div className="flex-1 space-y-4">
-                  <h3 className="text-2xl font-bold font-poppins">Your Name</h3>
+                  <h3 className="text-2xl font-bold font-poppins">Gaurav Bhuravane</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    I'm a passionate Full Stack Developer specializing in building exceptional digital experiences. 
-                    With a strong foundation in both frontend and backend technologies, I love turning complex problems 
-                    into simple, beautiful, and intuitive solutions.
+                    I'm a passionate IT professional with a strong foundation in software development and technology solutions. I enjoy solving complex problems and creating efficient, reliable, and user-friendly systems.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    Currently focused on React, Node.js, and modern web technologies. I'm always eager to learn new things 
-                    and take on challenging projects that push my skills to the next level.
+                    I am constantly exploring new tools and technologies to enhance my skills and deliver high-quality projects. I thrive in collaborative environments and am committed to building solutions that make a real impact.
                   </p>
                 </div>
               </div>
@@ -418,28 +476,28 @@ export default function Index() {
                   <div className="w-2 h-2 rounded-full bg-purple-500 mt-2"></div>
                   <div>
                     <p className="font-semibold">Location</p>
-                    <p className="text-muted-foreground">Your City, Country</p>
+                    <p className="text-muted-foreground">Ratnagiri, Maharashtra</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 rounded-full bg-blue-500 mt-2"></div>
                   <div>
                     <p className="font-semibold">Experience</p>
-                    <p className="text-muted-foreground">X+ years in IT</p>
+                    <p className="text-muted-foreground">Fresher</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 rounded-full bg-pink-500 mt-2"></div>
                   <div>
                     <p className="font-semibold">Education</p>
-                    <p className="text-muted-foreground">Bachelor's in Computer Science</p>
+                    <p className="text-muted-foreground">Master of Computer Application</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 rounded-full bg-purple-500 mt-2"></div>
                   <div>
                     <p className="font-semibold">Interests</p>
-                    <p className="text-muted-foreground">AI, Web3, Open Source</p>
+                    <p className="text-muted-foreground">Artificial Intelligence, Data Science, Web Development, Database Management</p>
                   </div>
                 </div>
               </div>
@@ -470,89 +528,436 @@ export default function Index() {
               <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-4">
                 My <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">Skills</span>
               </h2>
-              <p className="text-muted-foreground text-lg">Technologies and tools I work with</p>
+              <p className="text-muted-foreground text-lg">🧠 Technical Skills</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8 mb-16">
-              {skillCategories.map((category, categoryIndex) => {
-                const Icon = category.icon;
-                return (
-                  <motion.div
-                    key={category.title}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: categoryIndex * 0.1 }}
-                    className="glass-card p-6 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300"
-                  >
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-12 h-12 rounded-lg flex items-center justify-center">
-                        <Icon className="w-6 h-6 text-foreground" />
-                      </div>
-                      <h3 className="text-xl font-bold font-poppins">{category.title}</h3>
-                    </div>
+              {/* Languages */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0 }}
+                className="glass-card p-6 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center">
+                    <Code2 className="w-6 h-6 text-foreground" />
+                  </div>
+                  <h3 className="text-xl font-bold font-poppins">Languages</h3>
+                </div>
 
-                    <div className="space-y-4">
-                      {category.skills.map((skill, skillIndex) => (
-                        <motion.div
-                          key={skill.name}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                        >
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm font-medium">{skill.name}</span>
-                            <span className="text-xs text-muted-foreground">{skill.level}%</span>
-                          </div>
-                          <div className="h-2 bg-muted rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${skill.level}%` }}
-                              viewport={{ once: true }}
-                              transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 + 0.3, duration: 0.8 }}
-                              className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
-                            />
-                          </div>
-                        </motion.div>
-                      ))}
+                <div className="space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">JavaScript</span>
+                      <span className="text-xs text-muted-foreground">85%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '85%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
                     </div>
                   </motion.div>
-                );
-              })}
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Java</span>
+                      <span className="text-xs text-muted-foreground">75%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '75%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.45, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Python</span>
+                      <span className="text-xs text-muted-foreground">70%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '70%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Frameworks */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="glass-card p-6 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center">
+                    <Database className="w-6 h-6 text-foreground" />
+                  </div>
+                  <h3 className="text-xl font-bold font-poppins">Frameworks</h3>
+                </div>
+
+                <div className="space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">React</span>
+                      <span className="text-xs text-muted-foreground">80%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '80%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.25 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Node.js</span>
+                      <span className="text-xs text-muted-foreground">70%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '70%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.55, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Express</span>
+                      <span className="text-xs text-muted-foreground">65%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '65%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Tools */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="glass-card p-6 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center">
+                    <Cloud className="w-6 h-6 text-foreground" />
+                  </div>
+                  <h3 className="text-xl font-bold font-poppins">Tools</h3>
+                </div>
+
+                <div className="space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Git</span>
+                      <span className="text-xs text-muted-foreground">85%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '85%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.35 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">GitHub</span>
+                      <span className="text-xs text-muted-foreground">90%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '90%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.65, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">VS Code</span>
+                      <span className="text-xs text-muted-foreground">95%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '95%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.7, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
             </div>
 
+            {/* Personal Skills */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="glass-card p-8 mb-16"
+            >
+              <h3 className="text-2xl font-bold font-poppins mb-6 text-center">🤝 Personal Skills</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium">Leadership</span>
+                    <span className="text-xs text-muted-foreground">90%</span>
+                  </div>
+                  <div className="h-2 bg-muted rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '90%' }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.9, duration: 0.8 }}
+                      className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                    />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.65 }}
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium">Teamwork</span>
+                    <span className="text-xs text-muted-foreground">85%</span>
+                  </div>
+                  <div className="h-2 bg-muted rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '85%' }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.95, duration: 0.8 }}
+                      className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                    />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium">Communication</span>
+                    <span className="text-xs text-muted-foreground">88%</span>
+                  </div>
+                  <div className="h-2 bg-muted rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '88%' }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 1, duration: 0.8 }}
+                      className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                    />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.75 }}
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium">Time Management</span>
+                    <span className="text-xs text-muted-foreground">80%</span>
+                  </div>
+                  <div className="h-2 bg-muted rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '80%' }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 1.05, duration: 0.8 }}
+                      className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                    />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8 }}
+                  className="md:col-span-2 flex justify-center"
+                >
+                  <div className="w-full md:w-1/2">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Adaptability</span>
+                      <span className="text-xs text-muted-foreground">85%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '85%' }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 1.1, duration: 0.8 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Additional Expertise */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="glass-card p-8"
+              className="glass-card p-8 mb-16"
             >
               <h3 className="text-2xl font-bold font-poppins mb-6 text-center">Additional Expertise</h3>
               <div className="grid md:grid-cols-3 gap-6">
-                {additionalSkills.map((skill, index) => {
-                  const Icon = skill.icon;
-                  return (
-                    <motion.div
-                      key={skill.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.5 + index * 0.1 }}
-                      whileHover={{ scale: 1.05 }}
-                      className="flex flex-col items-center text-center p-6 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
-                    >
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center mb-4 transition-all">
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                      <span className="font-medium">{skill.name}</span>
-                    </motion.div>
-                  );
-                })}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-col items-center text-center p-6 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
+                >
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center mb-4 transition-all">
+                    <Palette className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="font-medium">Adobe Photoshop
+</span>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-col items-center text-center p-6 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
+                >
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center mb-4 transition-all">
+                    <Zap className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="font-medium">Filmora Video Editing</span>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-col items-center text-center p-6 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
+                >
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center mb-4 transition-all">
+                    <Cpu className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="font-medium">Microsoft Word
+</span>
+                </motion.div>
               </div>
             </motion.div>
 
+            
+           
+
+            
+
+            {/* Technologies Marquee */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -561,19 +966,17 @@ export default function Index() {
               className="mt-12 text-center"
             >
               <p className="text-muted-foreground mb-6">Constantly learning and adapting to new technologies</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                {['React', 'Node.js', 'TypeScript', 'Java', 'MongoDB', 'AWS', 'Docker', 'Git'].map((tech, index) => (
-                  <motion.div
-                    key={tech}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.7 + index * 0.05 }}
-                    className="px-4 py-2 rounded-full glass-card text-sm font-medium hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all"
-                  >
-                    {tech}
-                  </motion.div>
-                ))}
+              <div className="overflow-hidden">
+                <div className="flex animate-marquee whitespace-nowrap">
+                  {['React', 'Node.js', 'TypeScript', 'Java', 'MongoDB', 'AWS', 'Docker', 'Git', 'React', 'Node.js', 'TypeScript', 'Java', 'MongoDB', 'AWS', 'Docker', 'Git'].map((tech, index) => (
+                    <div
+                      key={index}
+                      className="inline-block mx-4 px-4 py-2 rounded-full glass-card text-sm font-medium hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all"
+                    >
+                      {tech}
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -858,65 +1261,155 @@ export default function Index() {
                 <Award className="w-8 h-8 text-white" />
               </motion.div>
               <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-4">
-                My <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">Certifications</span>
+                 My <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">Achievements & Certifications</span>
               </h2>
               <p className="text-muted-foreground text-lg">Professional achievements and credentials</p>
-              <p className="text-sm text-muted-foreground mt-2">Hover over cards to see details</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="h-64 perspective-1000"
-                  onMouseEnter={() => toggleFlip(index)}
-                  onMouseLeave={() => toggleFlip(index)}
-                >
-                  <div className={`relative w-full h-full transition-transform duration-500 preserve-3d ${flipped.includes(index) ? 'rotate-y-180' : ''}`}>
-                    <div className="absolute inset-0 glass-card p-6 backface-hidden flex flex-col items-center justify-center text-center">
-                      <div className="text-6xl mb-4">{cert.logo}</div>
-                      <h3 className="text-xl font-bold font-poppins mb-2">{cert.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{cert.issuer}</p>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Award className="w-3 h-3" />
-                        <span>{cert.date}</span>
-                      </div>
-                    </div>
+            {/* Tab Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-wrap justify-center gap-3 mb-12"
+            >
+              <button
+                onClick={() => setFilter('certifications')}
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 ${
+                  filter === 'certifications'
+                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)]'
+                    : 'glass-card hover:bg-muted'
+                }`}
+              >
+                📜 Certifications
+              </button>
+              <button
+                onClick={() => setFilter('achievements')}
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 ${
+                  filter === 'achievements'
+                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)]'
+                    : 'glass-card hover:bg-muted'
+                }`}
+              >
+                🏆 Achievements
+              </button>
+              <button
+                onClick={() => setFilter('academics')}
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 ${
+                  filter === 'academics'
+                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)]'
+                    : 'glass-card hover:bg-muted'
+                }`}
+              >
+                📚 Academics
+              </button>
+            </motion.div>
 
-                    <div className="absolute inset-0 glass-card p-6 backface-hidden rotate-y-180 flex flex-col">
-                      <h3 className="text-lg font-bold font-poppins mb-3">{cert.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4 flex-grow">{cert.description}</p>
-                      
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {cert.skills.map((skill, i) => (
-                          <span
-                            key={i}
-                            className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
+            {/* Certifications Tab */}
+            {filter === 'certifications' && (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  {
+                    title: 'Introduction to Front End Development',
+                    issuer: 'Simplilearn',
+                  },
+                  {
+                    title: 'Introduction to Artificial Intelligence',
+                    issuer: 'IBM',
+                  },
+                  {
+                    title: 'Getting Started with Artificial Intelligence',
+                    issuer: 'IBM',
+                  },
+                  {
+                    title: 'Instagram Clone Bootcamp (HTML & CSS)',
+                    issuer: 'DevTown',
+                  },
+                ].map((cert, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="glass-card p-6 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 border border-purple-500/30"
+                  >
+                    <h3 className="text-lg font-bold font-poppins mb-3">{cert.title}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      <strong>Issued by:</strong> {cert.issuer}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            )}
 
-                      <div className="flex gap-2">
-                        <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors text-sm">
-                          <ExternalLink className="w-3 h-3" />
-                          Verify
-                        </button>
-                        <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-primary hover:bg-primary/90 transition-colors text-sm">
-                          <Download className="w-3 h-3" />
-                          Download
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {/* Achievements Tab */}
+            {filter === 'achievements' && (
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    title: 'Runner-Up, National-Level Web Development Competition',
+                    year: '2025',
+                    description: 'Showcased strong skills in designing and developing innovative web applications.',
+                  },
+                  {
+                    title: 'Runner-Up, State-Level Web Development Competition',
+                    year: '2024',
+                    description: 'Demonstrated creativity and technical expertise in web development.',
+                  },
+                ].map((achievement, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="glass-card p-6 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 border border-purple-500/30"
+                  >
+                    <h3 className="text-xl font-bold font-poppins mb-2">{achievement.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-3">{achievement.year}</p>
+                    <p className="text-muted-foreground">{achievement.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+            {/* Academics Tab */}
+            {filter === 'academics' && (
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  {
+                    title: 'Tech Carnival 2024 - Code IT Competition Head',
+                    year: '2024',
+                    description: 'Led and organized the PowerPoint presentation competition at Tech Carnival 2024.',
+                  },
+                  {
+                    title: 'Outstanding Academic Performance',
+                    year: '2024',
+                    description: 'Achieved 9.56 CGPA in BSc Computer Science.',
+                  },
+                  {
+                    title: 'Project Work & Industrial Training',
+                    year: '2022-2024',
+                    description: 'Completed multiple projects using React and PHP.',
+                  },
+                ].map((academic, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="glass-card p-6 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 border border-purple-500/30"
+                  >
+                    <h3 className="text-lg font-bold font-poppins mb-2">{academic.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-3">{academic.year}</p>
+                    <p className="text-muted-foreground text-sm">{academic.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -926,21 +1419,21 @@ export default function Index() {
             >
               <div className="glass-card p-6 text-center">
                 <div className="text-4xl font-bold font-poppins bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent mb-2">
-                  {certifications.length}+
+                  4+
                 </div>
                 <p className="text-muted-foreground">Certifications Earned</p>
               </div>
               <div className="glass-card p-6 text-center">
                 <div className="text-4xl font-bold font-poppins bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent mb-2">
-                  5+
+                  2+
                 </div>
-                <p className="text-muted-foreground">Major Platforms</p>
+                <p className="text-muted-foreground">Competitions Won</p>
               </div>
               <div className="glass-card p-6 text-center">
                 <div className="text-4xl font-bold font-poppins bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent mb-2">
-                  100+
+                  3+
                 </div>
-                <p className="text-muted-foreground">Hours of Learning</p>
+                <p className="text-muted-foreground">Academic Achievements</p>
               </div>
             </motion.div>
           </motion.div>
@@ -968,7 +1461,7 @@ export default function Index() {
           <Mail className="w-8 h-8 text-white" />
         </motion.div>
         <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-4">
-          Get In{' '}
+          Get In{" "}
           <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
             Touch
           </span>
@@ -980,36 +1473,38 @@ export default function Index() {
 
       {/* Contact Info + Form */}
       <div className="grid lg:grid-cols-5 gap-8">
-        {/* Contact Info */}
+        {/* Left Side - Contact Info */}
         <motion.div
-                initial={{ opacity: 0, x: -40 }}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="lg:col-span-2 space-y-6"
+        >
+          {contactInfo.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.a
+                key={index}
+                href={item.href}
+                initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="lg:col-span-2 space-y-6"
+                transition={{ delay: 0.3 + index * 0.1 }}
+                className="glass-card p-6 flex items-center gap-4 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 group"
               >
-                {contactInfo.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.a
-                      key={index}
-                      href={item.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      className="glass-card p-6 flex items-center gap-4 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 group"
-                    >
-                      <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">{item.label}</p>
-                        <p className="font-medium">{item.value}</p>
-                      </div>
-                    </motion.a>
-                  );
-                })}
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Icon className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">
+                    {item.label}
+                  </p>
+                  <p className="font-medium">{item.value}</p>
+                </div>
+              </motion.a>
+            );
+          })}
 
           {/* Social Links */}
           <motion.div
@@ -1019,7 +1514,9 @@ export default function Index() {
             transition={{ delay: 0.6 }}
             className="glass-card p-6"
           >
-            <h3 className="text-lg font-bold font-poppins mb-4">Connect With Me</h3>
+            <h3 className="text-lg font-bold font-poppins mb-4">
+              Connect With Me
+            </h3>
             <div className="flex gap-3">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -1040,7 +1537,7 @@ export default function Index() {
           </motion.div>
         </motion.div>
 
-        {/* Contact Form */}
+        {/* Right Side - Contact Form */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -1048,30 +1545,47 @@ export default function Index() {
           transition={{ delay: 0.2 }}
           className="lg:col-span-3"
         >
-          <form onSubmit={handleSubmit} className="glass-card p-8 space-y-6 border border-purple-500/30">
+          <form
+            ref={form}
+            onSubmit={sendEmail}
+            className="glass-card p-8 space-y-6 border border-purple-500/30"
+          >
+            {/* Name and Email */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="name"
+                  className="text-sm font-medium text-foreground"
+                >
                   Your Name
                 </label>
                 <Input
                   id="name"
+                  name="from_name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="John Doe"
                   required
                   className="bg-input border-border focus:border-purple-500 focus:ring-purple-500/20"
                 />
               </div>
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium text-foreground"
+                >
                   Email Address
                 </label>
                 <Input
                   id="email"
+                  name="from_email"
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="john@example.com"
                   required
                   className="bg-input border-border focus:border-purple-500 focus:ring-purple-500/20"
@@ -1079,28 +1593,42 @@ export default function Index() {
               </div>
             </div>
 
+            {/* Subject */}
             <div className="space-y-2">
-              <label htmlFor="subject" className="text-sm font-medium text-foreground">
+              <label
+                htmlFor="subject"
+                className="text-sm font-medium text-foreground"
+              >
                 Subject
               </label>
               <Input
                 id="subject"
+                name="subject"
                 value={formData.subject}
-                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, subject: e.target.value })
+                }
                 placeholder="Project Inquiry"
                 required
                 className="bg-input border-border focus:border-purple-500 focus:ring-purple-500/20"
               />
             </div>
 
+            {/* Message */}
             <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium text-foreground">
+              <label
+                htmlFor="message"
+                className="text-sm font-medium text-foreground"
+              >
                 Message
               </label>
               <Textarea
                 id="message"
+                name="message"
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
                 placeholder="Tell me about your project..."
                 rows={6}
                 required
@@ -1108,13 +1636,21 @@ export default function Index() {
               />
             </div>
 
+            {/* Hidden Timestamp */}
+            <input
+              type="hidden"
+              name="time"
+              value={new Date().toLocaleString()}
+            />
+
+            {/* Submit Button */}
             <Button
               type="submit"
               disabled={isSubmitting}
               className="bg-gradient-to-r from-purple-500 to-blue-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] w-full group text-white"
             >
               {isSubmitting ? (
-                'Sending...'
+                "Sending..."
               ) : (
                 <>
                   Send Message
@@ -1128,6 +1664,8 @@ export default function Index() {
     </motion.div>
   </div>
 </section>
+<ToastContainer position="top-center" autoClose={3000} />
+
 
     </div>
   );

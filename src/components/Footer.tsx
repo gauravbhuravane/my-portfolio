@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/gauravbhuravane', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/gaurav-bhuravane', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/gauravbhuravane?t=qQd38oH4vyTcBsvRXO8wXg&s=08 ', label: 'Twitter' },
     { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' },
   ];
 
@@ -21,8 +21,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Copyright */}
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Portfolio. Made with{' '}
-            <Heart className="inline w-4 h-4 text-neon-pink" fill="currentColor" /> using React
+            © {new Date().getFullYear()} Gaurav Bhuravane | All rights reserved.
           </p>
 
           {/* Quick Links */}
