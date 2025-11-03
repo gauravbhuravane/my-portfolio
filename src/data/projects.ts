@@ -54,4 +54,27 @@ export const projects: Project[] = [
     demo: "https://github-explorer-omega-ten.vercel.app/",
     category: "Frontend"
   }
+  {
+  id: 5,
+  title: "Online Art Gallery",
+  description:
+    "ASP.NET-based web application that allows users to browse, add, and manage artworks with admin and user modules, CRUD operations, and SQL Server integration.",
+  techStack: ["ASP.NET Web Forms", "C#", "ADO.NET", "SQL Server", "HTML", "CSS", "Bootstrap"],
+  image: "/src/assets/images/online-art-gallery.png",
+  github: "https://github.com/gauravbhuravane/OnlineArtGallery",
+  demo: "",
+  category: "Full Stack"
+},
+{
+  id: 6,
+  title: "Event Booking System",
+  description:
+    "Web-based event management application developed using ASP.NET to handle event listings, bookings, and user management with database connectivity via SQL Server.",
+  techStack: ["ASP.NET Web Forms", "C#", "ADO.NET", "SQL Server", "HTML", "CSS", "Bootstrap"],
+  image: "/src/assets/images/event-booking-system.png",
+  github: "https://github.com/gauravbhuravane/EventBookingSystem",
+  demo: "",
+  category: "Full Stack"
+}
+
 ];
