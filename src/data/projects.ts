@@ -53,7 +53,7 @@ export const projects: Project[] = [
     github: "https://github.com/gauravbhuravane/github-explorer",
     demo: "https://github-explorer-omega-ten.vercel.app/",
     category: "Frontend"
-  }
+  },
   {
   id: 5,
   title: "Online Art Gallery",
