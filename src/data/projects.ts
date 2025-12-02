@@ -85,7 +85,7 @@ export const projects: Project[] = [
   image: "/src/assets/images/skinfusion.jpg",
   github: "https://github.com/gauravbhuravane/SkinFusion-Net",
   demo: "",
-  category: "AI/ML"
+  category: "Full Stack"
 }
 
 
