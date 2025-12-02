@@ -72,9 +72,21 @@ export const projects: Project[] = [
     "Web-based event management application developed using ASP.NET to handle event listings, bookings, and user management with database connectivity via SQL Server.",
   techStack: ["ASP.NET Web Forms", "C#", "ADO.NET", "SQL Server", "HTML", "CSS", "Bootstrap"],
   image: "/src/assets/images/event-booking-system.png",
-  github: "https://github.com/gauravbhuravane/EventBookingSystem",
+  github: "https://github.com/gauravbhuravane/EventBookingSyste",
   demo: "",
   category: "Full Stack"
+},
+{
+  id: 7,
+  title: "SkinFusion Net – AI Skin Analyzer",
+  description:
+    "An AI-powered skin analysis system that detects skin conditions, identifies issues like acne, dryness, pigmentation, and provides personalized skincare insights. Built using FastAPI, deep learning image models, and a clean React frontend.",
+  techStack: ["React", "JavaScript", "Tailwind CSS", "FastAPI", "Python", "Deep Learning", "OpenCV"],
+  image: "/src/assets/images/skinfusion.jpg",
+  github: "https://github.com/gauravbhuravane/SkinFusion-Net",
+  demo: "",
+  category: "AI/ML"
 }
+
 
 ];
