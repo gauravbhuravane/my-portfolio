@@ -1,4 +1,16 @@
-import fishTankImg from './assets/images/fish-tank.jpg';
+
+import fishTankImg from "../assets/images/fish-tank.jpg";
+import dispatchDailyImg from "../assets/images/dispatchdaily.jpg";
+import movieExplorerImg from "../assets/images/movie-explorer.jpg";
+import githubExplorerImg from "../assets/images/github-explorer.png";
+import onlineArtGalleryImg from "../assets/images/online-art-gallery.jpg";
+import eventBookingImg from "../assets/images/event-booking-system.jpg";
+
+// New projects (ensure these image files exist in src/assets/images)
+import qickblogImg from "../assets/images/qickblog.jpg";
+import jalmitraImg from "../assets/images/jalmitra-chatbot.jpg";
+import onlineQuizImg from "../assets/images/online-quiz-game.jpg";
+import spamClassifierImg from "../assets/images/ai-spam-classifier.jpg";
 
 export interface Project {
   id: number;
@@ -29,7 +41,7 @@ export const projects: Project[] = [
     description:
       "A PHP + MySQL based dynamic news portal for managing categorized news, with advanced search, bookmarks, and an admin panel.",
     techStack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
-    image: "/src/assets/images/dispatchdaily.jpg",
+    image: dispatchDailyImg,
     github: "https://github.com/gauravbhuravane/DispatchDaily",
     demo: "https://dispatchdaily.onrender.com",
     category: "Full Stack"
@@ -40,7 +52,7 @@ export const projects: Project[] = [
     description:
       "A dynamic web app using OMDb API to explore, save, and manage favorite movies with user authentication and filters.",
     techStack: ["HTML", "CSS", "Bootstrap 5", "PHP", "MySQL", "OMDb API"],
-    image: "/src/assets/images/movie-explorer.jpg",
+    image: movieExplorerImg,
     github: "https://github.com/gauravbhuravane/movie-explorer-system",
     demo: "https://movie-explorer-system.onrender.com/",
     category: "Full Stack"
@@ -51,44 +63,77 @@ export const projects: Project[] = [
     description:
       "Interactive React.js app to explore GitHub repositories and profiles with dark/light mode, pagination, and responsive design.",
     techStack: ["React.js", "HTML", "CSS", "JavaScript", "GitHub API"],
-    image: "/src/assets/images/github-explorer.png",
+    image: githubExplorerImg,
     github: "https://github.com/gauravbhuravane/github-explorer",
     demo: "https://github-explorer-omega-ten.vercel.app/",
     category: "Frontend"
   },
   {
-  id: 5,
-  title: "Online Art Gallery",
-  description:
-    "ASP.NET-based web application that allows users to browse, add, and manage artworks with admin and user modules, CRUD operations, and SQL Server integration.",
-  techStack: ["ASP.NET Web Forms", "C#", "ADO.NET", "SQL Server", "HTML", "CSS", "Bootstrap"],
-  image: "/src/assets/images/online-art-gallery.png",
-  github: "https://github.com/gauravbhuravane/OnlineArtGallery",
-  demo: "",
-  category: "Full Stack"
-},
-{
-  id: 6,
-  title: "Event Booking System",
-  description:
-    "Web-based event management application developed using ASP.NET to handle event listings, bookings, and user management with database connectivity via SQL Server.",
-  techStack: ["ASP.NET Web Forms", "C#", "ADO.NET", "SQL Server", "HTML", "CSS", "Bootstrap"],
-  image: "/src/assets/images/event-booking-system.png",
-  github: "https://github.com/gauravbhuravane/EventBookingSyste",
-  demo: "",
-  category: "Full Stack"
-},
-{
-  id: 7,
-  title: "SkinFusion Net – AI Skin Analyzer",
-  description:
-    "An AI-powered skin analysis system that detects skin conditions, identifies issues like acne, dryness, pigmentation, and provides personalized skincare insights. Built using FastAPI, deep learning image models, and a clean React frontend.",
-  techStack: ["React", "JavaScript", "Tailwind CSS", "FastAPI", "Python", "Deep Learning", "OpenCV"],
-  image: "/src/assets/images/skinfusion.jpg",
-  github: "https://github.com/gauravbhuravane/SkinFusion-Net",
-  demo: "",
-  category: "Full Stack"
-}
+    id: 5,
+    title: "Online Art Gallery",
+    description:
+      "ASP.NET-based web application that allows users to browse, add, and manage artworks with admin and user modules, CRUD operations, and SQL Server integration.",
+    techStack: ["ASP.NET Web Forms", "C#", "ADO.NET", "SQL Server", "HTML", "CSS", "Bootstrap"],
+    image: onlineArtGalleryImg,
+    github: "https://github.com/gauravbhuravane/OnlineArtGallery",
+    demo: "",
+    category: "Full Stack"
+  },
+  {
+    id: 6,
+    title: "Event Booking System",
+    description:
+      "Web-based event management application developed using ASP.NET to handle event listings, bookings, and user management with database connectivity via SQL Server.",
+    techStack: ["ASP.NET Web Forms", "C#", "ADO.NET", "SQL Server", "HTML", "CSS", "Bootstrap"],
+    image: eventBookingImg,
+    github: "https://github.com/gauravbhuravane/EventBookingSystem",
+    demo: "",
+    category: "Full Stack"
+  },
 
-
+  // --- New projects added (no demo links) ---
+  {
+    id: 7,
+    title: "QickBlog - Blogging Platform",
+    description:
+      "A full-featured blogging platform with authentication, rich text editor, categories, comments, and admin controls.",
+    techStack: ["React", "Node.js", "Express", "MongoDB", "JWT"],
+    image: qickblogImg,
+    github: "https://github.com/gauravbhuravane/QickBlog.git",
+    demo: "https://qick-blog.vercel.app/",
+    category: "Full Stack"
+  },
+  {
+    id: 8,
+    title: "Jalmitra Chatbot",
+    description:
+      "AI-powered chatbot focused on water conservation awareness, FAQs, and user interaction using NLP techniques.",
+    techStack: ["Python", "NLTK / Transformers", "Flask", "Machine Learning"],
+    image: jalmitraImg,
+    github: "https://github.com/gauravbhuravane/Jalmitra-Chatbot.git",
+    demo: "https://jalmitra-chatbot.vercel.app/",
+    category: "AI / ML"
+  },
+  {
+    id: 9,
+    title: "Online Quiz Game",
+    description:
+      "A multiplayer quiz application designed with real-time score updates, random questions, categories, and timer support.",
+    techStack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+    image: onlineQuizImg,
+    github: "https://github.com/gauravbhuravane/online-quiz-game.git",
+    demo: "https://online-quiz-game-pi.vercel.app/",
+    category: "Frontend"
+  },
+  {
+    id: 10,
+    title: "AI Spam Classifier",
+    description:
+      "Machine Learning-based classification system that detects spam vs. non-spam messages using NLP processing and ML algorithms.",
+    techStack: ["Python", "Scikit-Learn", "Pandas", "NumPy", "NLP"],
+    image: spamClassifierImg,
+    github: "https://github.com/gauravbhuravane/ai-spam-classifier.git",
+    demo: "",
+    category: "AI / ML"
+  }
 ];
