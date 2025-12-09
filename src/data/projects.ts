@@ -1,3 +1,5 @@
+import fishTankImg from './assets/images/fish-tank.jpg';
+
 export interface Project {
   id: number;
   title: string;
@@ -16,7 +18,7 @@ export const projects: Project[] = [
     description:
       "Explore aquatic species, fish care, diseases, and environment settings. Built to promote responsible fishkeeping and serve as an educational tool for fisheries students.",
     techStack: ["HTML5", "CSS3", "Bootstrap 5", "JavaScript", "PHP", "MySQL"],
-    image: "src/assets/images/fish-tank.jpg",
+    image: fishTankImg,
     github: "https://github.com/gauravbhuravane/aquarium-life-cycle",
     demo: "https://aquarium-life-cycle-1.onrender.com/",
     category: "Full Stack"
