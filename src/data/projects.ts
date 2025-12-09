@@ -16,7 +16,7 @@ export const projects: Project[] = [
     description:
       "Explore aquatic species, fish care, diseases, and environment settings. Built to promote responsible fishkeeping and serve as an educational tool for fisheries students.",
     techStack: ["HTML5", "CSS3", "Bootstrap 5", "JavaScript", "PHP", "MySQL"],
-    image: "/src/assets/images/fish-tank.jpg",
+    image: "src/assets/images/fish-tank.jpg",
     github: "https://github.com/gauravbhuravane/aquarium-life-cycle",
     demo: "https://aquarium-life-cycle-1.onrender.com/",
     category: "Full Stack"
